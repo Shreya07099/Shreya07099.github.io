@@ -298,6 +298,11 @@ main {
 
 .social-list a {
   color: var(--ink);
+  text-decoration: none;
+}
+
+.social-list a:hover {
+  text-decoration: underline;
   text-underline-offset: 0.2em;
 }
 
