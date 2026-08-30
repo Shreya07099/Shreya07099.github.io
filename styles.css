@@ -134,6 +134,13 @@ main {
   font-size: 1.2rem;
 }
 
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
 .contact-email {
   margin: 0 0 1.4rem;
   color: var(--ink);

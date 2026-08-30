@@ -37,7 +37,16 @@
         <p class="eyebrow" data-bind="role"></p>
         <h1 id="hero-name" data-bind="name"></h1>
         <p class="pitch" data-bind="pitch"></p>
-        <a class="cta" href="#about">About me</a>
+        <div class="hero-actions">
+          <a class="cta" href="#about">About me</a>
+          <a
+            class="cta cta-quiet"
+            href="Shreya_Nair_CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >CV</a
+          >
+        </div>
       </section>
 
       <section id="about" class="section about" aria-labelledby="about-heading">
@@ -66,13 +75,6 @@
         </div>
         <p class="contact-lead" data-bind="contactLead"></p>
         <p class="contact-email">email: <span data-bind="email"></span></p>
-        <a
-          class="cta cta-quiet"
-          href="Shreya_Nair_CV.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          >CV</a
-        >
         <ul id="social-list" class="social-list"></ul>
       </section>
     </main>
@@ -84,7 +86,7 @@
       </p>
     </footer>
 
-    <script src="content.js?v=2"></script>
-    <script src="script.js?v=2"></script>
+    <script src="content.js?v=3"></script>
+    <script src="script.js?v=3"></script>
   </body>
 </html>
