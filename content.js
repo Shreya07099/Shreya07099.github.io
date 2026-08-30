@@ -6,15 +6,12 @@ window.SITE = {
   email: "shre0608@gmail.com",
   contactLead:
     "Open to conversations about mechanistic interpretability, representation geometry, and research collaborations.",
-  cvUrl: "Shreya_Nair_CV.pdf",
   socials: [
-    { label: "CV", href: "Shreya_Nair_CV.pdf" },
     { label: "GitHub", href: "https://github.com/Shreya07099" },
     {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/shreya-nair-2171b4266/",
     },
-    { label: "Email", href: "mailto:shre0608@gmail.com" },
   ],
   about: [
     "Hello! I am Shreya, a student in the final year of studies at Vellore Institute of Technology, currently trying to venture into the field of mechanistic interpretability. To be more precise, my interests lie specifically in the mechanisms of why: i.e., what happens inside the models when generating a certain output, rejecting a request, or changing the tone of a response midway through.",

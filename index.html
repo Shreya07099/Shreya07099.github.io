@@ -28,7 +28,6 @@
       <nav id="site-nav" class="site-nav" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#work">Projects</a>
-        <a href="Shreya_Nair_CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
@@ -38,16 +37,7 @@
         <p class="eyebrow" data-bind="role"></p>
         <h1 id="hero-name" data-bind="name"></h1>
         <p class="pitch" data-bind="pitch"></p>
-        <div class="hero-actions">
-          <a class="cta" href="#about">About me</a>
-          <a
-            class="cta cta-quiet"
-            href="Shreya_Nair_CV.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            >CV</a
-          >
-        </div>
+        <a class="cta" href="#about">About me</a>
       </section>
 
       <section id="about" class="section about" aria-labelledby="about-heading">
@@ -75,18 +65,14 @@
           <h2 id="contact-heading">Contact</h2>
         </div>
         <p class="contact-lead" data-bind="contactLead"></p>
-        <div class="contact-actions">
-          <a class="cta cta-quiet" data-bind-email href="mailto:shre0608@gmail.com"
-            >shre0608@gmail.com</a
-          >
-          <a
-            class="cta cta-quiet"
-            href="Shreya_Nair_CV.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            >CV</a
-          >
-        </div>
+        <p class="contact-email">email: <span data-bind="email"></span></p>
+        <a
+          class="cta cta-quiet"
+          href="Shreya_Nair_CV.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          >CV</a
+        >
         <ul id="social-list" class="social-list"></ul>
       </section>
     </main>

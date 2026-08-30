@@ -13,12 +13,6 @@
     if (site[key] != null) el.textContent = site[key];
   });
 
-  const emailLink = document.querySelector("[data-bind-email]");
-  if (emailLink && site.email) {
-    emailLink.href = "mailto:" + site.email;
-    emailLink.textContent = site.email;
-  }
-
   const aboutCopy = document.getElementById("about-copy");
   site.about.forEach(function (paragraph) {
     const p = document.createElement("p");
