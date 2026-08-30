@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shreya Nair | Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Outfit:wght@380;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#about">Skip to about</a>
+
+    <header class="site-header">
+      <a class="logo" href="#top" data-bind="name">Shreya Nair</a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        Menu
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#work">Projects</a>
+        <a href="Shreya_Nair_CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-name">
+        <p class="eyebrow" data-bind="role"></p>
+        <h1 id="hero-name" data-bind="name"></h1>
+        <p class="pitch" data-bind="pitch"></p>
+        <div class="hero-actions">
+          <a class="cta" href="#about">About me</a>
+          <a
+            class="cta cta-quiet"
+            href="Shreya_Nair_CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >CV</a
+          >
+        </div>
+      </section>
+
+      <section id="about" class="section about" aria-labelledby="about-heading">
+        <div class="section-head">
+          <p class="eyebrow">What I do</p>
+          <h2 id="about-heading">About</h2>
+        </div>
+        <div class="about-grid">
+          <div id="about-copy" class="about-copy"></div>
+          <ul id="skill-list" class="skill-list"></ul>
+        </div>
+      </section>
+
+      <section id="work" class="section work" aria-labelledby="work-heading">
+        <div class="section-head">
+          <p class="eyebrow">Selected work</p>
+          <h2 id="work-heading">Projects</h2>
+        </div>
+        <div id="project-grid" class="project-grid"></div>
+      </section>
+
+      <section id="contact" class="section contact" aria-labelledby="contact-heading">
+        <div class="section-head">
+          <p class="eyebrow">Say hello</p>
+          <h2 id="contact-heading">Contact</h2>
+        </div>
+        <p class="contact-lead" data-bind="contactLead"></p>
+        <div class="contact-actions">
+          <a class="cta cta-quiet" data-bind-email href="mailto:shre0608@gmail.com"
+            >shre0608@gmail.com</a
+          >
+          <a
+            class="cta cta-quiet"
+            href="Shreya_Nair_CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >CV</a
+          >
+        </div>
+        <ul id="social-list" class="social-list"></ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <span data-bind="year"></span>
+        <span data-bind="name"></span>
+      </p>
+    </footer>
+
+    <script src="content.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
