@@ -207,6 +207,19 @@ main {
   min-height: 0;
 }
 
+.mini-card {
+  min-height: 0;
+  padding: 1.15rem 1.2rem 1.1rem;
+}
+
+.mini-card h3 {
+  font-size: 1.25rem;
+}
+
+.mini-card p {
+  font-size: 0.98rem;
+}
+
 .project-card:hover {
   transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--accent) 45%, var(--line));

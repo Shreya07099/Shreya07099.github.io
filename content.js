@@ -48,4 +48,20 @@ window.SITE = {
         "https://github.com/Shreya07099/valence-arousal-representation-in-llms",
     },
   ],
+  miniProjects: [
+    {
+      title: "J-space traces of negative-valence steering",
+      blurb:
+        "This project tests whether steering Gemma-2-2B-it toward negative valence (a vector injected at layer 12, using a valence-arousal subspace) leaves a measurable trace in the J-space, the Jacobian-lens view of the model's hidden states, which Anthropic proposed as a kind of global workspace. It asks three questions: how steering changes J-space, whether J-space tokens show any sign of awareness of the steering, and whether blocking negative-valence tokens at the output head can counteract it. Steering shifted J-space by about 10% from the unsteered path (mean cosine similarity 0.896). The awareness signal was weak: about 67% of top J-space tokens matched an awareness dictionary, but mostly through punctuation and fragments rather than meaningful words. Blocking 77 negative-valence tokens only slightly moved internals (about 5%) and fired on a minority of prompts. The takeaway is modest: steering does change J-space, but there is no clean awareness signal, and token blocking is a small nudge rather than a reset. It is a single-configuration study (one model, one angle, one strength, one injection layer), and it is open about its limits.",
+      tags: [
+        "Mini project",
+        "Gemma-2-2B-it",
+        "J-space",
+        "Activation steering",
+      ],
+      paperUrl:
+        "https://drive.google.com/file/d/18_BqicUTrd8n4tG8mKdkixGnaU8uMK1V/view?usp=sharing",
+      repoUrl: "https://github.com/Shreya07099/J-space_Project",
+    },
+  ],
 };

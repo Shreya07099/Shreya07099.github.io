@@ -81,6 +81,51 @@
     grid.appendChild(article);
   });
 
+  function renderCards(targetId, items, extraClass) {
+    const target = document.getElementById(targetId);
+    if (!target || !items) return;
+    items.forEach(function (project) {
+      const article = document.createElement("article");
+      article.className = extraClass || "project-card";
+
+      const h3 = document.createElement("h3");
+      h3.textContent = project.title;
+
+      const p = document.createElement("p");
+      p.textContent = project.blurb;
+
+      const tags = document.createElement("ul");
+      tags.className = "tags";
+      (project.tags || []).forEach(function (tag) {
+        const li = document.createElement("li");
+        li.textContent = tag;
+        tags.appendChild(li);
+      });
+
+      const links = document.createElement("div");
+      links.className = "project-links";
+
+      function addLink(href, label) {
+        if (!href) return;
+        const a = document.createElement("a");
+        a.href = href;
+        a.textContent = label;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        links.appendChild(a);
+      }
+
+      addLink(project.paperUrl, "Paper");
+      addLink(project.liveUrl, "Live");
+      addLink(project.repoUrl, "GitHub");
+
+      article.append(h3, p, tags, links);
+      target.appendChild(article);
+    });
+  }
+
+  renderCards("mini-grid", site.miniProjects, "project-card mini-card");
+
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.getElementById("site-nav");
   toggle.addEventListener("click", function () {
@@ -95,7 +140,7 @@
     });
   });
 
-  const sectionIds = ["about", "work", "contact"];
+  const sectionIds = ["about", "work", "mini", "contact"];
   const navLinks = Array.from(nav.querySelectorAll("a"));
 
   function setActive() {
