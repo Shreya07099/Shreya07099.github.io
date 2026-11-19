@@ -2,8 +2,10 @@ window.SITE = window.SITE || {};
 window.SITE.blogPosts = [
   {
     id: "alignment-lifecycle",
-    title: "Alignment methods across the model lifecycle",
-    date: "November 2026",
+    title:
+      "Where Alignment Is Applied Matters: How Easily LLM Alignment Methods Can Be Bypassed",
+    author: "Shre0608",
+    date: "17 November 2026",
     excerpt:
       "Alignment methods are applied at different stages of building an LLM. The stage matters for how well they work, and how easily they can be bypassed.",
     body: [

@@ -103,7 +103,7 @@
 
     const meta = document.createElement("p");
     meta.className = "post-meta";
-    meta.textContent = post.date || "";
+    meta.textContent = formatMeta(post);
 
     const excerpt = document.createElement("p");
     excerpt.textContent = post.excerpt || "";
@@ -117,9 +117,36 @@
     blogList.appendChild(card);
   });
 
+  function wordCount(post) {
+    let text = (post.title || "") + " " + (post.excerpt || "");
+    (post.body || []).forEach(function (block) {
+      if (block.text) text += " " + block.text;
+      if (block.items) {
+        block.items.forEach(function (item) {
+          if (typeof item === "string") text += " " + item;
+          else text += " " + (item.label || "") + " " + (item.text || "");
+        });
+      }
+    });
+    return text.trim().split(/\s+/).filter(Boolean).length;
+  }
+
+  function readingTime(post) {
+    const minutes = Math.max(1, Math.round(wordCount(post) / 230));
+    return minutes + " min read";
+  }
+
+  function formatMeta(post) {
+    const parts = [];
+    if (post.author) parts.push("by " + post.author);
+    if (post.date) parts.push(post.date);
+    parts.push(readingTime(post));
+    return parts.join(" · ");
+  }
+
   function renderPost(post) {
     document.getElementById("post-title").textContent = post.title;
-    document.getElementById("post-meta").textContent = post.date || "";
+    document.getElementById("post-meta").textContent = formatMeta(post);
     const body = document.getElementById("post-body");
     body.replaceChildren();
 
