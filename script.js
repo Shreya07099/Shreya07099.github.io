@@ -27,19 +27,24 @@
     skillList.appendChild(li);
   });
 
-  const socialList = document.getElementById("social-list");
-  site.socials.forEach(function (social) {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.href = social.href;
-    a.textContent = social.label;
-    if (social.href.startsWith("http") || social.href.endsWith(".pdf")) {
-      a.target = "_blank";
-      a.rel = "noopener noreferrer";
-    }
-    li.appendChild(a);
-    socialList.appendChild(li);
-  });
+  function fillLinkList(list) {
+    if (!list) return;
+    site.socials.forEach(function (social) {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = social.href;
+      a.textContent = social.label;
+      if (social.href.startsWith("http") || social.href.endsWith(".pdf")) {
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+      }
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+  }
+
+  fillLinkList(document.getElementById("social-list"));
+  fillLinkList(document.getElementById("footer-links"));
 
   const grid = document.getElementById("project-grid");
   site.projects.forEach(function (project) {
