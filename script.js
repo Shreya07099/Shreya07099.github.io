@@ -2,8 +2,6 @@
   const site = window.SITE;
   if (!site) return;
 
-  document.title = site.name + " | Projects";
-
   document.querySelectorAll("[data-bind]").forEach(function (el) {
     const key = el.getAttribute("data-bind");
     if (key === "year") {
@@ -45,46 +43,6 @@
 
   fillLinkList(document.getElementById("social-list"));
   fillLinkList(document.getElementById("footer-links"));
-
-  const grid = document.getElementById("project-grid");
-  site.projects.forEach(function (project) {
-    const article = document.createElement("article");
-    article.className = "project-card";
-
-    const h3 = document.createElement("h3");
-    h3.textContent = project.title;
-
-    const p = document.createElement("p");
-    p.textContent = project.blurb;
-
-    const tags = document.createElement("ul");
-    tags.className = "tags";
-    project.tags.forEach(function (tag) {
-      const li = document.createElement("li");
-      li.textContent = tag;
-      tags.appendChild(li);
-    });
-
-    const links = document.createElement("div");
-    links.className = "project-links";
-
-    function addLink(href, label) {
-      if (!href) return;
-      const a = document.createElement("a");
-      a.href = href;
-      a.textContent = label;
-      a.target = "_blank";
-      a.rel = "noopener noreferrer";
-      links.appendChild(a);
-    }
-
-    addLink(project.paperUrl, "Paper");
-    addLink(project.liveUrl, "Live");
-    addLink(project.repoUrl, "GitHub");
-
-    article.append(h3, p, tags, links);
-    grid.appendChild(article);
-  });
 
   function renderCards(targetId, items, extraClass) {
     const target = document.getElementById(targetId);
@@ -129,7 +87,157 @@
     });
   }
 
+  renderCards("project-grid", site.projects, "project-card");
   renderCards("mini-grid", site.miniProjects, "project-card mini-card");
+
+  const blogList = document.getElementById("blog-list");
+  (site.blogPosts || []).forEach(function (post) {
+    const card = document.createElement("article");
+    card.className = "blog-card";
+
+    const h3 = document.createElement("h3");
+    const link = document.createElement("a");
+    link.href = "#/blog/" + post.id;
+    link.textContent = post.title;
+    h3.appendChild(link);
+
+    const meta = document.createElement("p");
+    meta.className = "post-meta";
+    meta.textContent = post.date || "";
+
+    const excerpt = document.createElement("p");
+    excerpt.textContent = post.excerpt || "";
+
+    const read = document.createElement("a");
+    read.className = "text-link";
+    read.href = "#/blog/" + post.id;
+    read.textContent = "Read post";
+
+    card.append(h3, meta, excerpt, read);
+    blogList.appendChild(card);
+  });
+
+  function renderPost(post) {
+    document.getElementById("post-title").textContent = post.title;
+    document.getElementById("post-meta").textContent = post.date || "";
+    const body = document.getElementById("post-body");
+    body.replaceChildren();
+
+    post.body.forEach(function (block) {
+      if (block.type === "h2" || block.type === "h3" || block.type === "h4") {
+        const el = document.createElement(block.type);
+        el.textContent = block.text;
+        body.appendChild(el);
+        return;
+      }
+      if (block.type === "p") {
+        const p = document.createElement("p");
+        p.textContent = block.text;
+        body.appendChild(p);
+        return;
+      }
+      if (block.type === "ol" || block.type === "ul") {
+        const list = document.createElement(block.type);
+        block.items.forEach(function (item) {
+          const li = document.createElement("li");
+          li.textContent = item;
+          list.appendChild(li);
+        });
+        body.appendChild(list);
+        return;
+      }
+      if (block.type === "levels") {
+        const dl = document.createElement("dl");
+        dl.className = "level-list";
+        block.items.forEach(function (item) {
+          const dt = document.createElement("dt");
+          dt.textContent = item.label;
+          const dd = document.createElement("dd");
+          dd.textContent = item.text;
+          dl.append(dt, dd);
+        });
+        body.appendChild(dl);
+      }
+    });
+  }
+
+  function parseRoute() {
+    var hash = location.hash || "#/";
+    var legacy = {
+      "#about": "#/",
+      "#work": "#/projects",
+      "#mini": "#/mini",
+      "#contact": "#/contact",
+      "#top": "#/",
+    };
+    if (legacy[hash]) {
+      location.hash = legacy[hash];
+      return parseRoute();
+    }
+    var path = hash.replace(/^#/, "");
+    if (path.charAt(0) !== "/") path = "/" + path;
+    var parts = path.split("/").filter(Boolean);
+    if (!parts.length) return { page: "home" };
+    if (parts[0] === "blog" && parts[1]) return { page: "post", id: parts[1] };
+    if (parts[0] === "blog") return { page: "blog" };
+    if (parts[0] === "projects") return { page: "projects" };
+    if (parts[0] === "mini") return { page: "mini" };
+    if (parts[0] === "contact") return { page: "contact" };
+    return { page: "home" };
+  }
+
+  const pages = {
+    home: document.getElementById("page-home"),
+    blog: document.getElementById("page-blog"),
+    post: document.getElementById("page-post"),
+    projects: document.getElementById("page-projects"),
+    mini: document.getElementById("page-mini"),
+    contact: document.getElementById("page-contact"),
+  };
+
+  function showPage(name) {
+    Object.keys(pages).forEach(function (key) {
+      const visible = key === name;
+      pages[key].classList.toggle("is-visible", visible);
+      pages[key].hidden = !visible;
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function route() {
+    const parsed = parseRoute();
+    const nav = document.getElementById("site-nav");
+    nav.querySelectorAll("[data-nav]").forEach(function (link) {
+      const key = link.getAttribute("data-nav");
+      const active =
+        key === parsed.page || (parsed.page === "post" && key === "blog");
+      link.classList.toggle("is-active", active);
+    });
+
+    if (parsed.page === "post") {
+      const post = (site.blogPosts || []).find(function (item) {
+        return item.id === parsed.id;
+      });
+      if (!post) {
+        location.hash = "#/blog";
+        return;
+      }
+      renderPost(post);
+      document.title = post.title + " | " + site.name;
+      showPage("post");
+      return;
+    }
+
+    const titles = {
+      home: site.name,
+      blog: "Blog | " + site.name,
+      projects: "Projects | " + site.name,
+      mini: "Mini projects | " + site.name,
+      contact: "Contact | " + site.name,
+    };
+    document.title = titles[parsed.page] || site.name;
+    showPage(parsed.page);
+  }
 
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.getElementById("site-nav");
@@ -145,21 +253,16 @@
     });
   });
 
-  const sectionIds = ["about", "work", "mini", "contact"];
-  const navLinks = Array.from(nav.querySelectorAll("a"));
-
-  function setActive() {
-    let current = "";
-    sectionIds.forEach(function (id) {
-      const el = document.getElementById(id);
-      if (el && el.getBoundingClientRect().top <= 120) current = id;
-    });
-    navLinks.forEach(function (link) {
-      const match = link.getAttribute("href") === "#" + current;
-      link.classList.toggle("is-active", match);
+  const aboutCta = document.getElementById("about-cta");
+  if (aboutCta) {
+    aboutCta.addEventListener("click", function (event) {
+      event.preventDefault();
+      location.hash = "#/";
+      const about = document.getElementById("about");
+      if (about) about.scrollIntoView();
     });
   }
 
-  window.addEventListener("scroll", setActive, { passive: true });
-  setActive();
+  window.addEventListener("hashchange", route);
+  route();
 })();

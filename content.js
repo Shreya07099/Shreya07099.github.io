@@ -43,7 +43,7 @@ window.SITE = {
         "Activation steering",
       ],
       paperUrl:
-        "https://drive.google.com/file/d/119a1MJ3huv2r4gGfx6uvVvpcnOLR0D_R/view?usp=sharing",
+        "https://drive.google.com/file/d/1tMecTZ1VacwnctJTo_w5YIUgxvC39WmH/view?usp=sharing",
       repoUrl:
         "https://github.com/Shreya07099/valence-arousal-representation-in-llms",
     },
